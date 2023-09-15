@@ -5,33 +5,23 @@ class TokenController {
   async store(req, res) {
     const { email = '', password = '' } = req.body;
     if (!email || !password) {
-      return res.status(401).json(
-        { errors: ['Credencias inválidas'] },
-      );
+      return res.status(401).json({ errors: ['Credencias inválidas'] });
     }
-    const user = await _User2.default.findOne(
-      { where: { email } },
-    );
+    const user = await _User2.default.findOne({ where: { email } });
 
     if (!user) {
-      return res.status(401).json(
-        { errors: ['Usuário não existe'] },
-      );
+      return res.status(401).json({ errors: ['Usuário não existe'] });
     }
 
     if (!(await user.passwordIsValid(password))) {
-      return res.status(401).json(
-        { errors: ['Senha inválida'] },
-      );
+      return res.status(401).json({ errors: ['Senha inválida'] });
     }
     const { id } = user;
-    const token = _jsonwebtoken2.default.sign(
-      { id, email },
-      process.env.TOKEN_SECRET,
-      { expiresIn: process.env.TOKEN_EXPIRATION },
-    );
+    const token = _jsonwebtoken2.default.sign({ id, email }, process.env.TOKEN_SECRET, {
+      expiresIn: process.env.TOKEN_EXPIRATION,
+    });
 
-    return res.json({ token });
+    return res.json({ token, user: { nome: user.nome, id, email } });
   }
 }
 exports. default = new TokenController();
