@@ -14,7 +14,7 @@ import tokenRoutes from './routes/tokenRoutes';
 import alunoRoutes from './routes/alunoRoutes';
 import fotoRoutes from './routes/fotoRoutes';
 
-const whiteList = ['http://localhost:3001/api', 'https://mdecomerce.cloud/api'];
+const whiteList = ['http://localhost:3001', 'https://api.mdecomerce.cloud'];
 const corsOption = {
   origin(origin, callback) {
     if (whiteList.indexOf(origin) === -1 || origin) {
@@ -39,16 +39,16 @@ class App {
     this.app.use(express.json());
     this.app.use(
       '/images/',
-      express.static(resolve(__dirname, '..', 'uploads', 'images')),
+      express.static(resolve(__dirname, '..', 'uploads', 'images'))
     );
   }
 
   routes() {
-    this.app.use('/api/', homeRoutes);
-    this.app.use('/api/users/', userRoutes);
-    this.app.use('/api/alunos/', alunoRoutes);
-    this.app.use('/api/tokens/', tokenRoutes);
-    this.app.use('/api/fotos/', fotoRoutes);
+    this.app.use('/', homeRoutes);
+    this.app.use('/users/', userRoutes);
+    this.app.use('/alunos/', alunoRoutes);
+    this.app.use('/tokens/', tokenRoutes);
+    this.app.use('/fotos/', fotoRoutes);
   }
 }
 
