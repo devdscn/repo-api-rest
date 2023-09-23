@@ -14,7 +14,7 @@ var _tokenRoutes = require('./routes/tokenRoutes'); var _tokenRoutes2 = _interop
 var _alunoRoutes = require('./routes/alunoRoutes'); var _alunoRoutes2 = _interopRequireDefault(_alunoRoutes);
 var _fotoRoutes = require('./routes/fotoRoutes'); var _fotoRoutes2 = _interopRequireDefault(_fotoRoutes);
 
-const whiteList = ['http://localhost:3001/api', 'https://mdecomerce.cloud/api'];
+const whiteList = ['http://localhost:3001', 'https://api.mdecomerce.cloud'];
 const corsOption = {
   origin(origin, callback) {
     if (whiteList.indexOf(origin) === -1 || origin) {
@@ -39,16 +39,16 @@ class App {
     this.app.use(_express2.default.json());
     this.app.use(
       '/images/',
-      _express2.default.static(_path.resolve.call(void 0, __dirname, '..', 'uploads', 'images')),
+      _express2.default.static(_path.resolve.call(void 0, __dirname, '..', 'uploads', 'images'))
     );
   }
 
   routes() {
-    this.app.use('/api/', _homeRoutes2.default);
-    this.app.use('/api/users/', _userRoutes2.default);
-    this.app.use('/api/alunos/', _alunoRoutes2.default);
-    this.app.use('/api/tokens/', _tokenRoutes2.default);
-    this.app.use('/api/fotos/', _fotoRoutes2.default);
+    this.app.use('/', _homeRoutes2.default);
+    this.app.use('/users/', _userRoutes2.default);
+    this.app.use('/alunos/', _alunoRoutes2.default);
+    this.app.use('/tokens/', _tokenRoutes2.default);
+    this.app.use('/fotos/', _fotoRoutes2.default);
   }
 }
 
