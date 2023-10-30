@@ -15,7 +15,11 @@ import tokenRoutes from './routes/tokenRoutes';
 import alunoRoutes from './routes/alunoRoutes';
 import fotoRoutes from './routes/fotoRoutes';
 
-const whiteList = ['http://localhost:3001', 'https://api.mdecomerce.cloud'];
+const whiteList = [
+  'http://localhost:3001',
+  'https://api.mdecomerce.cloud',
+  'https://www.mdecomerce.cloud',
+];
 const corsOption = {
   origin(origin, callback) {
     if (whiteList.indexOf(origin) === -1 || origin) {

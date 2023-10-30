@@ -15,7 +15,11 @@ var _tokenRoutes = require('./routes/tokenRoutes'); var _tokenRoutes2 = _interop
 var _alunoRoutes = require('./routes/alunoRoutes'); var _alunoRoutes2 = _interopRequireDefault(_alunoRoutes);
 var _fotoRoutes = require('./routes/fotoRoutes'); var _fotoRoutes2 = _interopRequireDefault(_fotoRoutes);
 
-const whiteList = ['http://localhost:3001', 'https://api.mdecomerce.cloud'];
+const whiteList = [
+  'http://localhost:3001',
+  'https://api.mdecomerce.cloud',
+  'https://www.mdecomerce.cloud',
+];
 const corsOption = {
   origin(origin, callback) {
     if (whiteList.indexOf(origin) === -1 || origin) {
@@ -36,11 +40,15 @@ class App {
   middlewares() {
     this.app.use(_cors2.default.call(void 0, corsOption));
     this.app.use(_helmet2.default.call(void 0, ));
-    this.app.use(_expressdelay2.default.call(void 0, 2000));
+    this.app.use(_expressdelay2.default.call(void 0, 200));
     this.app.use(_express2.default.urlencoded({ extended: true }));
     this.app.use(_express2.default.json());
     this.app.use(
       '/images/',
+      (req, res, next) => {
+        res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+        next();
+      },
       _express2.default.static(_path.resolve.call(void 0, __dirname, '..', 'uploads', 'images'))
     );
   }
